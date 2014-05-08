@@ -10,12 +10,13 @@ var App = function(){
   var self = this;
 
   // Setup
-  self.dbClient = new mongodb.MongoClient()
-  self.dbClient.connect("mongodb://"+process.env.OPENSHIFT_MONGODB_HA_DB_HOST1 + ":" + process.env.OPENSHIFT_MONGODB_HA_DB_PORT1 +
+  self.dbClient = new mongodb.MongoClient();
+  self.dbClient.connect("mongodb://"+ process.env.OPENSHIFT_MONGODB_HA_DB_HOST1 + ":" + process.env.OPENSHIFT_MONGODB_HA_DB_PORT1 +
 			process.env.OPENSHIFT_MONGODB_HA_DB_HOST2 + ":" + process.env.OPENSHIFT_MONGODB_HA_DB_PORT2 +
-			process.env.OPENSHIFT_MONGODB_HA_DB_HOST3 + ":" + process.env.OPENSHIFT_MONGODB_HA_DB_PORT3 +
-			"/")
+			process.env.OPENSHIFT_MONGODB_HA_DB_HOST3 + ":" + process.env.OPENSHIFT_MONGODB_HA_DB_PORT3);
   
+  if ( typeof self.dbClient == 'undefined' ){
+	console.warn('Connection object undefined');}
   self.db = process.env.OPENSHIFT_APP_NAME;	
   self.dbUser = process.env.OPENSHIFT_MONGODB_HA_DB_USERNAME;
   self.dbPass = process.env.OPENSHIFT_MONGODB_HA_DB_PASSWORD;
