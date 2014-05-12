@@ -10,14 +10,14 @@ var App = function(){
   var self = this;
 
   // Setup
-  self.dbClient = new mongodb.MongoClient();
-  self.dbClient.connect("mongodb://"+ process.env.OPENSHIFT_MONGODB_HA_DB_HOST1 + ":" + process.env.OPENSHIFT_MONGODB_HA_DB_PORT1 +
+  self.dbClient = require('mongodb').MongoClient;
+  self.URI = "mongodb://"+ process.env.OPENSHIFT_MONGODB_HA_DB_HOST1 + ":" + process.env.OPENSHIFT_MONGODB_HA_DB_PORT1 +
 			process.env.OPENSHIFT_MONGODB_HA_DB_HOST2 + ":" + process.env.OPENSHIFT_MONGODB_HA_DB_PORT2 +
-			process.env.OPENSHIFT_MONGODB_HA_DB_HOST3 + ":" + process.env.OPENSHIFT_MONGODB_HA_DB_PORT3);
+			process.env.OPENSHIFT_MONGODB_HA_DB_HOST3 + ":" + process.env.OPENSHIFT_MONGODB_HA_DB_PORT3 +
+			"/" + process.env.OPENSHIFT_APP_NAME);
   
   if ( typeof self.dbClient == 'undefined' ){
-	console.warn('Connection object undefined');}
-  self.db = process.env.OPENSHIFT_APP_NAME;	
+	console.warn('Connection object undefined');}	
   self.dbUser = process.env.OPENSHIFT_MONGODB_HA_DB_USERNAME;
   self.dbPass = process.env.OPENSHIFT_MONGODB_HA_DB_PASSWORD;
 
@@ -135,9 +135,9 @@ var App = function(){
   // Logic to open a database connection. We are going to call this outside of app so it is available to all our functions inside.
 
   self.connectDb = function(callback){
-    self.dbClient.open(function(err, dbClient){
+    self.dbClient.connect(self.URI, function(err, db){
       if(err){ throw err };
-      self.db.authenticate(self.dbUser, self.dbPass, {authdb: "admin"}, function(err, res){
+      db.authenticate(self.dbUser, self.dbPass, {authdb: "admin"}, function(err, res){
         if(err){ throw err };
         callback();
       });
