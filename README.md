@@ -5,6 +5,7 @@ This code actually belongs to a [blog piece](https://openshift.redhat.com/commun
 
 It is a very simple application that let's serve up points on an OpenStreetMap base layer. If you want to use your own data you can replace the contents of parks.json with your own data and import that instead.
 
+This code has been adapted from the original git repository https://github.com/thesteve0/fluentwebmap.git in order to support MongoDB Replica Sets.
 
 Running on OpenShift
 ----------------------------
@@ -13,20 +14,12 @@ Create an account at http://openshift.redhat.com/
 
 Create a Node.js application and add a MongoDB cartridge to the app
 
-    rhc app create fluentwebmap nodejs-0.1 mongodb-2.2 -s -g medium
+    rhc app create fluentwebmap nodejs-0.1 mongodb-ha
     
-You can name your application anything you want - it does not have to be fluentwebmap.
-
-The command line above also uses -s to make it a scalable application, where MongoDB and Node.JS are on different gears and therefore do not have to share resources. It also allows them to scale independently
-
-Since I am a paid user, I am also choosing to use medium gears (1 gig of memory) by using the -g flag for my applications.
-
-
-now add this upstream node repo
-
+Now add this upstream node repo
 
     cd fluentwebmap
-    git remote add upstream -m master https://github.com/thesteve0/fluentwebmap.git
+    git remote add upstream -m master https://github.com/liaabi/fluentwebmap.git
     git pull -s recursive -X theirs upstream master
     
 Then push the repo upstream
