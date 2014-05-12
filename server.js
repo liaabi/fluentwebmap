@@ -137,7 +137,7 @@ var App = function(){
   self.connectDb = function(callback){
     self.dbClient.connect(self.URI, function(err, db){
       if(err){ throw err };
-      db.authenticate(self.dbUser, self.dbPass, {authdb: "admin"}, function(err, res){
+      db.authenticate(self.dbUser, self.dbPass, function(err, res){
         if(err){ throw err };
         callback();
       });
