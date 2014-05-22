@@ -176,3 +176,4 @@ var app = new App();
 
 //call the connectDb function and pass in the start server command
 app.connectDb(app.startServer);
+app.get('/ws/parks/near');
