@@ -15,7 +15,7 @@ var App = function(){
 			process.env.OPENSHIFT_MONGODB_HA_DB_HOST2 + ":" + process.env.OPENSHIFT_MONGODB_HA_DB_PORT2 +
 			process.env.OPENSHIFT_MONGODB_HA_DB_HOST3 + ":" + process.env.OPENSHIFT_MONGODB_HA_DB_PORT3 ;
 
-  self.db = new mongodb.Db(process.env.OPENSHIFT_APP_NAME, config);  
+  self.db = {};  
   if ( typeof self.dbClient == 'undefined' ){
 	console.warn('Connection object undefined');}	
   self.dbUser = process.env.OPENSHIFT_MONGODB_HA_DB_USERNAME;
