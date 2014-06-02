@@ -139,10 +139,10 @@ var App = function(){
     self.dbClient.connect(self.URI, function(err, database){
       if(err){ throw err };
       self.db = database;
-      echo "Database: " + database;
+      process.stdout.write("Database: " + database);
       self.db.authenticate(self.dbUser, self.dbPass, function(err, res){
         if(err){ throw err };
-        echo "authenticated";
+        process.stdout.write("authenticated")
         callback();
       });
     });
