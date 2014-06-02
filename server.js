@@ -13,7 +13,7 @@ var App = function(){
   self.dbClient = require('mongodb').MongoClient;
   self.URI = "mongodb://"+ process.env.OPENSHIFT_MONGODB_HA_DB_HOST1 + ":" + process.env.OPENSHIFT_MONGODB_HA_DB_PORT1 +
 			process.env.OPENSHIFT_MONGODB_HA_DB_HOST2 + ":" + process.env.OPENSHIFT_MONGODB_HA_DB_PORT2 +
-			process.env.OPENSHIFT_MONGODB_HA_DB_HOST3 + ":" + process.env.OPENSHIFT_MONGODB_HA_DB_PORT3 +
+			process.env.OPENSHIFT_MONGODB_HA_DB_HOST3 + ":" + process.env.OPENSHIFT_MONGODB_HA_DB_PORT3 + "/" +
 			process.env.OPENSHIFT_APP_NAME + "/" ;
 
   self.db = {};  
