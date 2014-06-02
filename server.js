@@ -136,7 +136,7 @@ var App = function(){
   self.connectDb = function(callback){
     self.dbClient.connect(self.URI, function(err, db){
       if(err){ throw err };
-      self.db = self.dbClient(process.env.OPENSHIFT_APP_NAME);
+      self.db = db;
       self.db.authenticate(self.dbUser, self.dbPass, function(err, res){
         if(err){ throw err };
         callback();
