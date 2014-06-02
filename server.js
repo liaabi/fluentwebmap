@@ -16,7 +16,7 @@ var App = function(){
 			process.env.OPENSHIFT_MONGODB_HA_DB_HOST3 + ":" + process.env.OPENSHIFT_MONGODB_HA_DB_PORT3 +
 			process.env.OPENSHIFT_APP_NAME + "/" ;
 
-  self.db = {};  
+  //self.db = {};  
   if ( typeof self.dbClient == 'undefined' ){
 	console.warn('Connection object undefined');}	
   self.dbUser = process.env.OPENSHIFT_MONGODB_HA_DB_USERNAME;
@@ -136,13 +136,13 @@ var App = function(){
   // Logic to open a database connection. We are going to call this outside of app so it is available to all our functions inside.
 
   self.connectDb = function(callback){
-    self.dbClient.connect(self.URI, function(err, database){
+    self.dbClient.connect(self.URI, function(err, db){
       if(err){ throw err };
-      self.db = database;
-      process.stdout.write("Database: " + database);
-      self.db.authenticate(self.dbUser, self.dbPass, function(err, res){
+      //self.db = database;
+      //process.stdout.write("Database: " + database);
+      db.authenticate(self.dbUser, self.dbPass, function(err, res){
         if(err){ throw err };
-        process.stdout.write("authenticated")
+        //process.stdout.write("authenticated")
         callback();
       });
     });
