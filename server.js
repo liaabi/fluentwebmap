@@ -136,11 +136,11 @@ var App = function(){
   // Logic to open a database connection. We are going to call this outside of app so it is available to all our functions inside.
 
   self.connectDb = function(callback){
-    self.dbClient.connect(self.URI, function(err, db){
+    self.dbClient.connect(self.URI, function(err, database){
       if(err){ throw err };
       self.db = database;
       process.stdout.write("Database: " + database);
-      db.authenticate(self.dbUser, self.dbPass, function(err, res){
+      self.db.authenticate(self.dbUser, self.dbPass, function(err, res){
         if(err){ throw err };
         process.stdout.write("authenticated")
         callback();
