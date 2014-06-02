@@ -16,7 +16,7 @@ var App = function(){
 			process.env.OPENSHIFT_MONGODB_HA_DB_HOST3 + ":" + process.env.OPENSHIFT_MONGODB_HA_DB_PORT3 +
 			process.env.OPENSHIFT_APP_NAME + "/" ;
 
-  //self.db = {};  
+  self.db = {};  
   if ( typeof self.dbClient == 'undefined' ){
 	console.warn('Connection object undefined');}	
   self.dbUser = process.env.OPENSHIFT_MONGODB_HA_DB_USERNAME;
@@ -33,7 +33,7 @@ var App = function(){
   self.routes = {};
   self.routes['health'] = function(req, res){ res.send('1'); };
   
- // self.routes['root'] = function(req, res){res.send('You have come to the park apps web service. All the web services are at /ws/parks*. For example /ws/parks will return all the parks in the system in a JSON payload. Thanks for stopping by and have a nice day'); };
+  self.routes['root'] = function(req, res){res.send('You have come to the park apps web service. All the web services are at /ws/parks*. For example /ws/parks will return all the parks in the system in a JSON payload. Thanks for stopping by and have a nice day'); };
 
   //returns all the parks in the collection
   self.routes['returnAllParks'] = function(req, res){
@@ -138,11 +138,11 @@ var App = function(){
   self.connectDb = function(callback){
     self.dbClient.connect(self.URI, function(err, db){
       if(err){ throw err };
-      //self.db = database;
-      //process.stdout.write("Database: " + database);
+      self.db = database;
+      process.stdout.write("Database: " + database);
       db.authenticate(self.dbUser, self.dbPass, function(err, res){
         if(err){ throw err };
-        //process.stdout.write("authenticated")
+        process.stdout.write("authenticated")
         callback();
       });
     });
@@ -180,4 +180,3 @@ var app = new App();
 
 //call the connectDb function and pass in the start server command
 app.connectDb(app.startServer);
-app.get('/ws/parks/near');
